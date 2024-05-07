@@ -8,10 +8,20 @@ Simply start it with this command from the root of the repo:
 docker-compose up -d
 ```
 
+If your docker version supports `docker compose`,
+```
+docker compose up -d
+```
+
 To shutdown the instances.
 
 ```
 docker-compose down
+```
+
+or
+```
+docker compose down
 ```
 
 ### Package and Run in JVM mode
