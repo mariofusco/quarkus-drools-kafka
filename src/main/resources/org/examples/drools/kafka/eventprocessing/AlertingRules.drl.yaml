@@ -1,0 +1,21 @@
+name: org.examples.drools.kafka.eventprocessing
+unit: AlertingUnit
+rules:
+- name: IncomingEvent
+  when:
+  - datasource: eventData
+    as: $e1
+    having:
+    - type == "temperature"
+    - value >= 30
+  - datasource: eventData
+    as: $e2
+    having:
+    - type == "temperature"
+    - value > $e1.value
+    - "this after[0s,5s] $e1"
+  then: |
+    String alertMessage = "Temperature increase: " + ($e2.getValue() - $e1.getValue());
+        System.out.println(alertMessage);
+        Alert alert = new Alert( "warning", alertMessage );
+        alertData.append( alert );
